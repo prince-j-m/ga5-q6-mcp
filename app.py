@@ -1,5 +1,5 @@
 import hashlib
-from fastapi import FastAPI
+
 from fastmcp import FastMCP
 from fastmcp.server.dependencies import get_http_headers
 
@@ -24,11 +24,3 @@ app = mcp.http_app(
     stateless_http=True,
     json_response=True,
 )
-
-
-@app.get("/")
-async def home():
-    return {
-        "status": "ok",
-        "service": "MCP server running"
-    }
