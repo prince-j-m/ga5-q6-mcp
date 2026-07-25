@@ -25,9 +25,9 @@ app = FastAPI()
 
 # Root route for grader URL check
 @app.get("/")
+@app.head("/")
 def home():
     return {"status": "ok"}
-
 
 # Mount MCP endpoint
 app.mount(
