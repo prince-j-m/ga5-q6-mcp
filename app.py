@@ -1,5 +1,6 @@
 import hashlib
 
+from fastapi import FastAPI
 from fastmcp import FastMCP
 from fastmcp.server.dependencies import get_http_headers
 
@@ -18,7 +19,21 @@ async def solve_challenge() -> str:
     ).hexdigest()[:16]
 
 
-app = mcp.http_app(
-    stateless_http=True,
-    json_response=True,
+# Create FastAPI app
+app = FastAPI()
+
+
+# Root route for grader URL check
+@app.get("/")
+def home():
+    return {"status": "ok"}
+
+
+# Mount MCP endpoint
+app.mount(
+    "/mcp",
+    mcp.http_app(
+        stateless_http=True,
+        json_response=True,
+    )
 )
